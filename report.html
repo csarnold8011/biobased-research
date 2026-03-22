@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="hu"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KillerProjekt: Gyapjú és Vér</title>
+<link href="https://fonts.googleapis.com/css2?family=Creepster&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Crimson Text', Georgia, serif;
+    background: #0d0d0d;
+    color: #d4c9b0;
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+  }
+
+  /* HERO */
+  .hero {
+    text-align: center;
+    padding: 60px 0 40px;
+    border-bottom: 1px solid #3a1a1a;
+    margin-bottom: 40px;
+  }
+  .hero h1 {
+    font-family: 'Creepster', cursive;
+    font-size: clamp(2.8rem, 8vw, 5.5rem);
+    color: #cc0000;
+    letter-spacing: 0.04em;
+    line-height: 1.1;
+    text-shadow: 0 0 30px rgba(180,0,0,0.5), 2px 2px 0 #1a0000;
+  }
+  .hero .subtitle {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.82rem;
+    color: #666;
+    margin-top: 14px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  /* TOC */
+  .toc {
+    background: #161010;
+    border: 1px solid #3a1a1a;
+    border-radius: 4px;
+    padding: 18px 22px;
+    margin-bottom: 40px;
+  }
+  .toc strong {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.78rem;
+    color: #666;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 10px;
+  }
+  .toc a {
+    color: #cc4444;
+    text-decoration: none;
+    display: block;
+    padding: 4px 0;
+    font-size: 1rem;
+  }
+  .toc a:hover { color: #ff6666; }
+
+  /* SECTION */
+  .section-divider {
+    border: none;
+    border-top: 1px solid #3a1a1a;
+    margin: 50px 0 30px;
+  }
+  h2 {
+    font-family: 'Creepster', cursive;
+    font-size: 2rem;
+    color: #cc0000;
+    letter-spacing: 0.03em;
+    margin-bottom: 16px;
+    text-shadow: 1px 1px 0 #1a0000;
+  }
+  h3 {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    color: #666;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin: 28px 0 12px;
+  }
+
+  /* SUMMARY BOX */
+  .summary-box {
+    background: #161010;
+    border: 1px solid #3a1a1a;
+    border-left: 3px solid #8b0000;
+    border-radius: 4px;
+    padding: 20px 22px;
+    margin-bottom: 16px;
+  }
+  .summary-text {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: #c8bda8;
+    margin-bottom: 14px;
+  }
+  .score-row {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.85rem;
+    color: #888;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .trend-pill {
+    display: inline-block;
+    background: #1e0a0a;
+    color: #cc4444;
+    border: 1px solid #3a1a1a;
+    border-radius: 2px;
+    padding: 3px 10px;
+    font-size: 0.78rem;
+    font-family: 'Share Tech Mono', monospace;
+    margin: 3px 3px 0 0;
+  }
+
+  /* CATEGORIES */
+  .categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    margin: 12px 0;
+  }
+  .cat-card {
+    background: #161010;
+    border: 1px solid #3a1a1a;
+    border-radius: 4px;
+    padding: 12px 14px;
+  }
+  .cat-name {
+    font-weight: 600;
+    color: #cc4444;
+    font-size: 0.95rem;
+    margin-bottom: 5px;
+  }
+  .cat-desc { color: #999; font-size: 0.88rem; line-height: 1.4; }
+  .cat-count {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    color: #555;
+    margin-top: 6px;
+  }
+
+  /* TOP 5 */
+  .top5-item {
+    display: flex;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid #2a1515;
+  }
+  .top5-num {
+    font-family: 'Creepster', cursive;
+    font-size: 1.8rem;
+    color: #8b0000;
+    min-width: 30px;
+    line-height: 1;
+  }
+  .top5-title {
+    font-size: 0.97rem;
+    font-weight: 600;
+    color: #d4c9b0;
+    margin-bottom: 4px;
+  }
+  .top5-reason { font-size: 0.88rem; color: #888; font-style: italic; }
+
+  /* ARTICLE CARDS */
+  .article-card {
+    background: #111;
+    border: 1px solid #2a1515;
+    border-radius: 4px;
+    padding: 14px 16px;
+    margin-bottom: 8px;
+  }
+  .article-card:hover { border-color: #5a2020; }
+  .article-title a {
+    color: #cc6666;
+    text-decoration: none;
+    font-size: 0.97rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  .article-title a:hover { color: #ff8888; text-decoration: underline; }
+  .article-meta {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    color: #555;
+    margin: 5px 0;
+  }
+  .article-snippet { font-size: 0.88rem; color: #888; line-height: 1.55; margin-top: 6px; }
+  .badge {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 2px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+  .badge-academic { background: #0d1a2e; color: #4488cc; border: 1px solid #1a3a5e; }
+  .badge-web      { background: #1a1200; color: #aa8833; border: 1px solid #3a2a00; }
+
+  .section-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.72rem;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 20px 0 8px;
+  }
+</style>
+</head><body>
+
+
+<div class="hero">
+  <h1>KillerProjekt: Gyapjú és Vér</h1>
+  <div class="subtitle">Bio-based innovációs riport &nbsp;·&nbsp; 2026-03-22 &nbsp;·&nbsp; OpenAlex + SerpAPI + Claude</div>
+</div>
+
+<div class="toc"><strong>Tartalom</strong>
+<a href="#wool">▸ Birkagyapjú — bio-based hasznosítás</a>
+<a href="#blood">▸ Állatvér — bio-based hasznosítás</a>
+</div>
+<hr class="section-divider"><h2 id="wool">Birkagyapjú — bio-based hasznosítás</h2>
+<div class="summary-box">
+<div class="summary-text">The bio-based utilization of wool waste (birkagyapjú) represents a rapidly evolving field within the circular bioeconomy, focusing on transforming textile waste into valuable biomaterials. Current research demonstrates significant progress in extracting and utilizing keratin proteins from wool for biomedical applications, including wound healing, 3D bioprinting, and tissue engineering scaffolds. The field is experiencing substantial innovation in composite material development, where wool fibers are being integrated into sustainable building materials, insulation products, and reinforced polymer composites. Agricultural applications are emerging as a promising avenue, with waste wool being repurposed as soil amendments and growth substrates. Advanced processing techniques including chemical modifications, fiber length optimization, and hybrid material development are enhancing the mechanical and functional properties of wool-based products. The integration of wool keratin with other biomaterials like graphene oxide and natural polymers is expanding application possibilities. Sustainability assessments through life cycle analysis are validating the environmental benefits of wool waste valorization. The research landscape shows strong momentum toward establishing closed-loop circular economy models for textile waste management. Industrial applications are moving from laboratory research toward commercial viability, particularly in construction and biomedical sectors.</div>
+<div class="score-row"><span>Aktivitás:</span> <span style="font-family:monospace;color:#8b0000;">████████████████░░░░</span> 8/10</div>
+<div style="margin-top:12px;"><span class="trend-pill">Integration of wool keratin in advanced biomedical applications including 3D bioprinting and wound care</span><span class="trend-pill">Development of hybrid composite materials combining wool fibers with synthetic and bio-based polymers</span><span class="trend-pill">Implementation of circular economy principles through closed-loop wool waste recycling systems</span></div>
+</div>
+<h3>Kategóriák</h3><div class="categories">
+<div class="cat-card">
+<div class="cat-name">Biomedical Applications</div>
+<div class="cat-desc">Keratin-based materials for wound healing, 3D bioprinting, and medical device applications.</div>
+<div class="cat-count">8 tétel</div>
+</div>
+<div class="cat-card">
+<div class="cat-name">Composite Materials</div>
+<div class="cat-desc">Natural fiber reinforced composites and hybrid materials incorporating wool fibers.</div>
+<div class="cat-count">9 tétel</div>
+</div>
+<div class="cat-card">
+<div class="cat-name">Circular Economy & Waste Management</div>
+<div class="cat-desc">Strategies for wool waste valorization and closed-loop textile recycling systems.</div>
+<div class="cat-count">7 tétel</div>
+</div>
+<div class="cat-card">
+<div class="cat-name">Construction & Building Materials</div>
+<div class="cat-desc">Integration of wool fibers in sustainable construction materials and insulation products.</div>
+<div class="cat-count">6 tétel</div>
+</div>
+<div class="cat-card">
+<div class="cat-name">Agricultural Applications</div>
+<div class="cat-desc">Utilization of waste wool in agricultural settings as soil amendments and growing media.</div>
+<div class="cat-count">4 tétel</div>
+</div>
+<div class="cat-card">
+<div class="cat-name">Material Processing & Characterization</div>
+<div class="cat-desc">Chemical modifications, fiber treatments, and mechanical property enhancement techniques.</div>
+<div class="cat-count">5 tétel</div>
+</div>
+</div>
+<h3>Top 5</h3>
+<div class="top5-item">
+<div class="top5-num">1</div>
+<div>
+  <div class="top5-title">Turning Waste Wool into a Circular Resource: A Review of Eco-Innovative Applications in Agriculture</div>
+  <div class="top5-reason">This comprehensive review directly addresses the core topic of wool waste valorization and provides systematic analysis of agricultural applications.</div>
+</div>
+</div>
+<div class="top5-item">
+<div class="top5-num">2</div>
+<div>
+  <div class="top5-title">RECYCLING OF PRE-CONSUMER WOOL WASTE: FIBER LENGTH OPTIMIZATION FOR A CLOSED-LOOP CIRCULAR ECONOMY</div>
+  <div class="top5-reason">Focuses specifically on technical optimization for circular economy implementation in wool waste processing.</div>
+</div>
+</div>
+<div class="top5-item">
+<div class="top5-num">3</div>
+<div>
+  <div class="top5-title">Keratin 3D Printing: Sustainable Biomaterials for Regenerative Medicine and Biomanufacturing</div>
+  <div class="top5-reason">Represents cutting-edge application of wool-derived keratin in advanced manufacturing technologies.</div>
+</div>
+</div>
+<div class="top5-item">
+<div class="top5-num">4</div>
+<div>
+  <div class="top5-title">The Influence of Various Chemical Modifications of Sheep Wool Fibers on the Long-Term Mechanical Properties of Sheep Wool/PLA Biocomposites</div>
+  <div class="top5-reason">Provides critical technical insights into enhancing wool fiber performance in sustainable composite applications.</div>
+</div>
+</div>
+<div class="top5-item">
+<div class="top5-num">5</div>
+<div>
+  <div class="top5-title">Advances and perspectives in the utilization of protein waste in the textile industry: A sustainable approach for the future</div>
+  <div class="top5-reason">Offers strategic perspective on protein waste valorization including wool within broader textile sustainability context.</div>
+</div>
+</div>
+<h3>Összes találat (39)</h3>
+<div class="section-label">Publikációk</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1186/s44315-025-00049-3" target="_blank">Hybrid soft biomaterial of wool keratin and graphene oxide for immobilization of thermophilic and halophilic dehydrogenase from extremophile</a>
+</div>
+<div class="article-meta">Blue Biotechnology &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Xian‐Tao Zeng, Hangbin Lei, Jincan Zhang &nbsp;·&nbsp; 1× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1016/j.actbio.2025.03.056" target="_blank">Recombinant keratin: Comprehensive review of synthesis, hierarchical assembly, properties, and applications</a>
+</div>
+<div class="article-meta">Acta Biomaterialia &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Suyoung Lee, Mark Van Dyke, Minkyu Kim &nbsp;·&nbsp; 2× idézve</div>
+<div class="article-snippet"></div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.63676/hnk40685" target="_blank">A systematic review with semi-quantitative synthesis and GRADE qualification of the effectiveness of a keratin-based matrix in treating hard-to-heal wounds</a>
+</div>
+<div class="article-meta">International Journal of Tissue Repair &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; William H Tettelbach, Martha R Kelso, Louis Cappa &nbsp;·&nbsp; 1× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1177/20417314241308022" target="_blank">Innovative bioinks for 3D bioprinting: Exploring technological potential and regulatory challenges</a>
+</div>
+<div class="article-meta">Journal of Tissue Engineering &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Vidhi Mathur, Prachi Agarwal, Meghana Kasturi &nbsp;·&nbsp; 53× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1007/s44347-025-00014-8" target="_blank">Advances in sustainable biomaterials: characterizations, and applications in medicine</a>
+</div>
+<div class="article-meta">Discover Polymers. &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Kuldeep Vinchurkar, Sarad Pawar Naik Bukke, Priyansh Jain &nbsp;·&nbsp; 29× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1016/j.jot.2024.12.011" target="_blank">Piezoelectric biomaterials for providing electrical stimulation in bone tissue engineering: Barium titanate</a>
+</div>
+<div class="article-meta">Journal of Orthopaedic Translation &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Huagui Huang, Kaizhong Wang, Xiangyan Liu &nbsp;·&nbsp; 33× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1155/ijps/4184239" target="_blank">Variation in Mechanical Properties of Polymer Composites With Reinforcements From Different Animal Origins—A Comprehensive Review</a>
+</div>
+<div class="article-meta">International Journal of Polymer Science &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Ratul Islam Antor, Asfia Mahbuba Bithi, Ayeman Mazdi Nahin &nbsp;·&nbsp; 11× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1155/bri/6619273" target="_blank">Current Understanding of Feather Keratin and Keratinase and Their Applications in Biotechnology</a>
+</div>
+<div class="article-meta">Biochemistry Research International &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Thanakorn Moktip, Lakha Salaipeth, Ana Eusebio Cope &nbsp;·&nbsp; 12× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.3390/jfb16010020" target="_blank">Natural Protein Films from Textile Waste for Wound Healing and Wound Dressing Applications</a>
+</div>
+<div class="article-meta">Journal of Functional Biomaterials &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Livia Ottaviano, Sara Buoso, R. Zamboni &nbsp;·&nbsp; 7× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1038/s41467-025-57460-y" target="_blank">Discovery of mammalian collagens I and III within ancient poriferan biopolymer spongin</a>
+</div>
+<div class="article-meta">Nature Communications &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Hermann Ehrlich, Ivan Mikšı́k, Mikhail V. Tsurkan &nbsp;·&nbsp; 13× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1007/s12221-025-00858-8" target="_blank">Investigation of Dyeing Behaviors of Bio-mordanted Wool Fabric Dyed with Natural Dye</a>
+</div>
+<div class="article-meta">Fibers and Polymers &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Şeyda Eyüpoğlu, Can Eyüpoğlu, Nigar Merdan &nbsp;·&nbsp; 13× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1016/j.mtcomm.2025.114325" target="_blank">Predominance of β-sheet structures in Latxa wool: IR and Raman analysis compared with previously published X-ray data</a>
+</div>
+<div class="article-meta">Materials Today Communications &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Laura Abarzuza, Mercedes de la Fuente, Borja Fernández–d’Arlas</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1177/19373341251398721" target="_blank">Keratin 3D Printing: Sustainable Biomaterials for Regenerative Medicine and Biomanufacturing</a>
+</div>
+<div class="article-meta">Tissue Engineering Part A &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Mina Rajabi, Xiaoxuan Deng, Jithendra Ratnayake</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.3390/fib13090119" target="_blank">A Review of Natural Fibers: Classification, Composition, Extraction, Treatments, and Applications</a>
+</div>
+<div class="article-meta">Fibers &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Telmo Eleutério, Maria João Trota, Maria Meirelles &nbsp;·&nbsp; 20× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1186/s44316-024-00023-w" target="_blank">Sustainable dressings for wound healing</a>
+</div>
+<div class="article-meta">Biotechnology for Sustainable Materials &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Munishwar Nath Gupta, Avinash Rangaraju, Premlata Ambre &nbsp;·&nbsp; 17× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1016/j.conbuildmat.2025.141220" target="_blank">Assessing the mechanical properties of low-quality sheep wool yarn</a>
+</div>
+<div class="article-meta">Construction and Building Materials &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Giusi Midolo, Marta Del Zoppo, Massimo Durante &nbsp;·&nbsp; 3× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.3390/waste3020018" target="_blank">Agricultural Waste: Challenges and Solutions, a Review</a>
+</div>
+<div class="article-meta">Waste &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Maximilian Lackner, Maghsoud Besharati &nbsp;·&nbsp; 35× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1038/s41467-025-59203-5" target="_blank">Costs of transitioning the livestock sector to net-zero emissions under future climates</a>
+</div>
+<div class="article-meta">Nature Communications &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Franco Bilotto, K Christie, Bill Malcolm &nbsp;·&nbsp; 19× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1007/s42452-025-06981-8" target="_blank">Eco-friendly composites: exploring the potential of natural fiber reinforcement</a>
+</div>
+<div class="article-meta">Discover Applied Sciences &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Madhu Puttegowda &nbsp;·&nbsp; 41× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1007/s11367-024-02425-4" target="_blank">Evaluating environmental impacts of bio-based insulation materials through scenario-based and dynamic life cycle assessment</a>
+</div>
+<div class="article-meta">The International Journal of Life Cycle Assessment &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Valeria Cascione, Matt Roberts, Stephen Allen &nbsp;·&nbsp; 9× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.3390/app15094644" target="_blank">A Short Review of Recent Innovations in Acoustic Materials and Panel Design: Emphasizing Wood Composites for Enhanced Performance and Sustainability</a>
+</div>
+<div class="article-meta">Applied Sciences &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Aleksandrs Korjakins, Genādijs Šahmenko, Vjačeslavs Lapkovskis &nbsp;·&nbsp; 11× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.3390/ijerph22020311" target="_blank">Impact of Lead Pollution from Vehicular Traffic on Highway-Side Grazing Areas: Challenges and Mitigation Policies</a>
+</div>
+<div class="article-meta">International Journal of Environmental Research and Public Health &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Tareq Al-Sabbagh, Sheikh Shreaz &nbsp;·&nbsp; 19× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1186/s40168-025-02096-9" target="_blank">Enhanced propionate and butyrate metabolism in cecal microbiota contributes to cold-stress adaptation in sheep</a>
+</div>
+<div class="article-meta">Microbiome &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Xindong Cheng, Yanping Liang, Kaixi Ji &nbsp;·&nbsp; 14× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.3390/environments12030082" target="_blank">Sustainability-Oriented Innovation in the Textile Manufacturing Industry: Pre-Consumer Waste Recovery and Circular Patterns</a>
+</div>
+<div class="article-meta">Environments &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Maria Angela Butturi, Alessandro Neri, Francesco Mercalli &nbsp;·&nbsp; 13× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.3390/agronomy15020446" target="_blank">Turning Waste Wool into a Circular Resource: A Review of Eco-Innovative Applications in Agriculture</a>
+</div>
+<div class="article-meta">Agronomy &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Francesca Camilli, Marco Focacci, Aldo Dal Prà &nbsp;·&nbsp; 7× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.3390/ma18163803" target="_blank">The Role of Natural Fibers in the Building Industry—The Perspective of Sustainable Development</a>
+</div>
+<div class="article-meta">Materials &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Agnieszka Bąk &nbsp;·&nbsp; 11× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1007/s43939-025-00419-z" target="_blank">A comprehensive review on natural fiber reinforced hybrid composites processing techniques, material properties and emerging applications</a>
+</div>
+<div class="article-meta">Discover Materials &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Jörg Kaufmann, Alhayat Getu Temesgen, Holger Cebulla &nbsp;·&nbsp; 15× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.3390/polym17050628" target="_blank">Advancing Textile Waste Recycling: Challenges and Opportunities Across Polymer and Non-Polymer Fiber Types</a>
+</div>
+<div class="article-meta">Polymers &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Mehrdad Seifali Abbas‐Abadi, Brecht Tomme, Bahman Goshayeshi &nbsp;·&nbsp; 45× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.3390/su18010135" target="_blank">Energy Efficiency and Circular Economy in Glass Wool Fiberizing: Impact of Lightweight Refractory Design</a>
+</div>
+<div class="article-meta">Sustainability &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Junaid Afzal, Baptiste Forgerit, Abhishek Tiwary</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.3390/ma18133056" target="_blank">The Influence of Various Chemical Modifications of Sheep Wool Fibers on the Long-Term Mechanical Properties of Sheep Wool/PLA Biocomposites</a>
+</div>
+<div class="article-meta">Materials &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Piotr Szatkowski &nbsp;·&nbsp; 3× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.5281/zenodo.17899894" target="_blank">RECYCLING OF PRE-CONSUMER WOOL WASTE: FIBER LENGTH OPTIMIZATION FOR A CLOSED-LOOP CIRCULAR ECONOMY</a>
+</div>
+<div class="article-meta">Zenodo (CERN European Organization for Nuclear Research) &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Basho, Megi, Cebulla, Holger</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1016/j.jobe.2025.112147" target="_blank">Sustainable construction materials from leveraging water hyacinth and wastepaper for superior sound absorption and thermal insulation</a>
+</div>
+<div class="article-meta">Journal of Building Engineering &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Siwat Lawanwadeekul, Prinya Chindaprasirt &nbsp;·&nbsp; 9× idézve</div>
+<div class="article-snippet"></div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1016/j.susmat.2025.e01277" target="_blank">Advances and perspectives in the utilization of protein waste in the textile industry: A sustainable approach for the future</a>
+</div>
+<div class="article-meta">Sustainable materials and technologies &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Natalia Urraca Rocha, Andrew Macrae, Ana Maria Mazotto &nbsp;·&nbsp; 2× idézve</div>
+<div class="article-snippet"></div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1007/978-3-031-86773-6_5" target="_blank">Biodegradable Elegance: Assessing Luxury Textile Biodegradability</a>
+</div>
+<div class="article-meta">Sustainable textiles &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; J. Jaisri, S. Balaji &nbsp;·&nbsp; 3× idézve</div>
+<div class="article-snippet"></div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.54033/cadpedv22n5-175" target="_blank">Analysis of the physical and mechanical properties of mortar with the incorporation of natural wool fiber from Pantanal sheep</a>
+</div>
+<div class="article-meta">Caderno Pedagógico &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Nilcilene Sampaio Lima, Filipe Bittencourt Figueiredo, Fernando Miranda de Vargas &nbsp;·&nbsp; 1× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.3390/fib13050062" target="_blank">Recovery of End-of-Life Building Materials: Thermal Decomposition and Phase Transformation of Chrysotile in Asbestos-Containing Fiber Cement Boards</a>
+</div>
+<div class="article-meta">Fibers &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; António Curado, Leonel J. R. Nunes, Arlete Carvalho &nbsp;·&nbsp; 2× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1109/elticom67568.2025.11335994" target="_blank">Classification and Identification of Natural Biodegradable Fabrics using Convolutional Neural Network</a>
+</div>
+<div class="article-meta"> &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Jhamil G. Gutierrez, Jocelyn F. Villaverde, Jhamil G. Gutierrez &nbsp;·&nbsp; 1× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.3133/mcs2025" target="_blank">Mineral commodity summaries 2025</a>
+</div>
+<div class="article-meta"> &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; U.S. Geological Survey &nbsp;·&nbsp; 212× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1016/j.biotechadv.2025.108517" target="_blank">Mycelium-based composites: An updated comprehensive overview</a>
+</div>
+<div class="article-meta">Biotechnology Advances &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Emma Camilleri, Sumesh Narayan, Divnesh Lingam &nbsp;·&nbsp; 34× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<hr class="section-divider"><h2 id="blood">Állatvér — bio-based hasznosítás</h2>
+<div class="summary-box">
+<div class="summary-text">Animal blood utilization in bio-based applications represents a growing segment within the circular bioeconomy, focusing on converting slaughterhouse waste into valuable products. Current research emphasizes the development of protein hydrolysates from porcine and bovine blood for nutritional and biomedical applications. Advanced processing techniques including enzymatic hydrolysis are being optimized to enhance bioactivity and functional properties of blood-derived products. The field is expanding beyond traditional feed applications to include bioactive peptides, functional ingredients, and sustainable protein sources. Integration with other waste streams, such as rumen content mixtures, is being explored to maximize resource efficiency. Black soldier fly larvae cultivation on blood-containing substrates represents an innovative approach to waste valorization. Environmental sustainability and economic viability are key drivers pushing the development of comprehensive slaughterhouse waste management systems. Regulatory frameworks and quality control measures are evolving to support commercial applications. The sector shows strong potential for contributing to sustainable protein supply chains and waste reduction goals. Research is increasingly focused on extracting maximum value from blood components while addressing environmental and safety concerns.</div>
+<div class="score-row"><span>Aktivitás:</span> <span style="font-family:monospace;color:#8b0000;">██████████████░░░░░░</span> 7/10</div>
+<div style="margin-top:12px;"><span class="trend-pill">Integration of blood waste with other organic residues for enhanced valorization</span><span class="trend-pill">Advanced enzymatic processing for bioactive peptide extraction</span><span class="trend-pill">Expansion from feed applications into biomedical and pharmaceutical sectors</span></div>
+</div>
+<h3>Kategóriák</h3><div class="categories">
+<div class="cat-card">
+<div class="cat-name">Slaughterhouse Waste Valorization</div>
+<div class="cat-desc">Comprehensive approaches to converting abattoir waste including blood into valuable products through various processing techniques.</div>
+<div class="cat-count">8 tétel</div>
+</div>
+<div class="cat-card">
+<div class="cat-name">Blood Protein Processing</div>
+<div class="cat-desc">Enzymatic hydrolysis and optimization techniques for converting animal blood into bioactive protein hydrolysates and functional ingredients.</div>
+<div class="cat-count">6 tétel</div>
+</div>
+<div class="cat-card">
+<div class="cat-name">Alternative Feed Development</div>
+<div class="cat-desc">Utilization of blood-based mixtures and waste combinations as sustainable animal feed sources.</div>
+<div class="cat-count">4 tétel</div>
+</div>
+<div class="cat-card">
+<div class="cat-name">Biomedical Applications</div>
+<div class="cat-desc">Development of blood-derived materials for pharmaceutical, therapeutic, and medical device applications.</div>
+<div class="cat-count">12 tétel</div>
+</div>
+<div class="cat-card">
+<div class="cat-name">Sustainable Biotechnology</div>
+<div class="cat-desc">Biotechnological approaches to agricultural waste processing and bio-based material development from organic residues.</div>
+<div class="cat-count">12 tétel</div>
+</div>
+</div>
+<h3>Top 5</h3>
+<div class="top5-item">
+<div class="top5-num">1</div>
+<div>
+  <div class="top5-title">A literature review of slaughterhouse waste valorisation: Techniques, environmental, and economic implications</div>
+  <div class="top5-reason">Provides comprehensive overview of the entire field including blood utilization with economic and environmental impact assessment.</div>
+</div>
+</div>
+<div class="top5-item">
+<div class="top5-num">2</div>
+<div>
+  <div class="top5-title">Porcine Blood: An Eco-Efficient Source of Multifunctional Protein Hydrolysates</div>
+  <div class="top5-reason">Directly addresses blood valorization with focus on sustainable protein extraction and multifunctional applications.</div>
+</div>
+</div>
+<div class="top5-item">
+<div class="top5-num">3</div>
+<div>
+  <div class="top5-title">Optimization of Sequential Enzymatic Hydrolysis in Porcine Blood and the Influence on Peptide Profile and Bioactivity of Prepared Hydrolysates</div>
+  <div class="top5-reason">Presents advanced processing techniques crucial for maximizing the value extraction from animal blood.</div>
+</div>
+</div>
+<div class="top5-item">
+<div class="top5-num">4</div>
+<div>
+  <div class="top5-title">Dried Blood–Rumen Content Mixtures as Sustainable Poultry Feed: A Review on Nutritional, Economic, and Environmental Potential</div>
+  <div class="top5-reason">Demonstrates innovative approaches to combining blood with other waste streams for enhanced circular economy applications.</div>
+</div>
+</div>
+<div class="top5-item">
+<div class="top5-num">5</div>
+<div>
+  <div class="top5-title">Advancing the valorisation of meat co-products in food, pet food, and biomedicine applications</div>
+  <div class="top5-reason">Contextualizes blood utilization within broader meat industry waste valorization strategies across multiple application sectors.</div>
+</div>
+</div>
+<h3>Összes találat (42)</h3>
+<div class="section-label">Publikációk</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1007/s00204-025-03997-2" target="_blank">Antioxidants: a comprehensive review</a>
+</div>
+<div class="article-meta">Archives of Toxicology &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; İlhami Gülçın &nbsp;·&nbsp; 160× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.7150/thno.112475" target="_blank">Nano drug delivery systems for advanced immune checkpoint blockade therapy</a>
+</div>
+<div class="article-meta">Theranostics &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Chenqi Guo, Ling Lin, Yihan Wang &nbsp;·&nbsp; 98× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1186/s12943-025-02305-x" target="_blank">Advances in cancer immunotherapy: historical perspectives, current developments, and future directions</a>
+</div>
+<div class="article-meta">Molecular Cancer &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Mei‐Yin Zhang, Chao-jun Liu, Jing Tu &nbsp;·&nbsp; 108× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1038/s41392-025-02312-w" target="_blank">Extracellular vesicle-based drug overview: research landscape, quality control and nonclinical evaluation strategies</a>
+</div>
+<div class="article-meta">Signal Transduction and Targeted Therapy &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Gangling Xu, Jing Jin, Zhihao Fu &nbsp;·&nbsp; 81× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1186/s40164-025-00647-2" target="_blank">Extracellular matrix stiffness: mechanisms in tumor progression and therapeutic potential in cancer</a>
+</div>
+<div class="article-meta">Experimental Hematology and Oncology &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Meiling Zhang, Bin Zhang &nbsp;·&nbsp; 128× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.3390/polym17152026" target="_blank">Advancements in Hydrogels: A Comprehensive Review of Natural and Synthetic Innovations for Biomedical Applications</a>
+</div>
+<div class="article-meta">Polymers &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Adina‐Elena Segneanu, Ludovic Everard Bejenaru, Cornelia Bejenaru &nbsp;·&nbsp; 89× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.3390/pharmaceutics17020215" target="_blank">Hydrogels and Nanogels: Pioneering the Future of Advanced Drug Delivery Systems</a>
+</div>
+<div class="article-meta">Pharmaceutics &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Ernesto J. Delgado-Pujol, Guillermo Martínez, David Casado-Jurado &nbsp;·&nbsp; 122× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.3390/jcm14061838" target="_blank">Bone Regeneration: A Review of Current Treatment Strategies</a>
+</div>
+<div class="article-meta">Journal of Clinical Medicine &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Ralphenia D. Pace, Simone Molinari, Elisa Mazzoni &nbsp;·&nbsp; 76× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1186/s12943-024-02215-4" target="_blank">Emerging role of exosomes in cancer therapy: progress and challenges</a>
+</div>
+<div class="article-meta">Molecular Cancer &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Jiale Li, Jiachong Wang, Zigui Chen &nbsp;·&nbsp; 160× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1038/s41392-025-02253-4" target="_blank">Mitochondria in oxidative stress, inflammation and aging: from mechanisms to therapeutic advances</a>
+</div>
+<div class="article-meta">Signal Transduction and Targeted Therapy &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Xiaojun Xu, Yan Pang, Xianqun Fan &nbsp;·&nbsp; 274× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1177/20417314241308022" target="_blank">Innovative bioinks for 3D bioprinting: Exploring technological potential and regulatory challenges</a>
+</div>
+<div class="article-meta">Journal of Tissue Engineering &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Vidhi Mathur, Prachi Agarwal, Meghana Kasturi &nbsp;·&nbsp; 53× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1039/d4ra07277d" target="_blank">Sustainable and biocompatible hybrid materials-based sulfated polysaccharides for biomedical applications: a review</a>
+</div>
+<div class="article-meta">RSC Advances &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Reem S. Alfinaikh, Khalid A. Alamry, Mahmoud A. Hussein &nbsp;·&nbsp; 69× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1038/s41467-025-57016-0" target="_blank">Bio-inspired electronics: Soft, biohybrid, and “living” neural interfaces</a>
+</div>
+<div class="article-meta">Nature Communications &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Dimitris Boufidis, Raghav Garg, Evangelos A. Angelopoulos &nbsp;·&nbsp; 84× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1186/s12951-025-03448-1" target="_blank">Layered double hydroxides for regenerative nanomedicine and tissue engineering: recent advances and future perspectives</a>
+</div>
+<div class="article-meta">Journal of Nanobiotechnology &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Junsi Luo, Yiteng Cui, Laijun Xu &nbsp;·&nbsp; 54× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.3390/antibiotics14020207" target="_blank">Nanomaterial-Based Strategies to Combat Antibiotic Resistance: Mechanisms and Applications</a>
+</div>
+<div class="article-meta">Antibiotics &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Nargish Parvin, Sang Woo Joo, Tapas Kumar Mandal &nbsp;·&nbsp; 102× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1016/j.bcab.2025.103590" target="_blank">Determination of black soldier fly (Hermetia illucens L.) growth and nutrition on food waste and bovine blood mixture as a feedstock</a>
+</div>
+<div class="article-meta">Biocatalysis and Agricultural Biotechnology &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Agus Dana Permana, Irtyafari Almira Haswara, Khalilan Lambangsari &nbsp;·&nbsp; 1× idézve</div>
+<div class="article-snippet"></div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1002/fsn3.70796" target="_blank">Dried Blood–Rumen Content Mixtures as Sustainable Poultry Feed: A Review on Nutritional, Economic, and Environmental Potential</a>
+</div>
+<div class="article-meta">Food Science & Nutrition &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Soressa Shuma, Demissu Hundie Senbeta, Malatji Dikeledi Petunia &nbsp;·&nbsp; 1× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.3390/pr13010084" target="_blank">Advancing Industrial Food Byproduct Management: Strategies, Technologies, and Progress in Waste Reduction</a>
+</div>
+<div class="article-meta">Processes &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; David Agus Setiawan Wibisono, Chiou-Yeong Saw, Tsung-Yen Wu &nbsp;·&nbsp; 23× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.3390/foods14010114" target="_blank">Microbial Fermentation in Food and Beverage Industries: Innovations, Challenges, and Opportunities</a>
+</div>
+<div class="article-meta">Foods &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Mallari Praveen, Simone Brogi &nbsp;·&nbsp; 50× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.5194/essd-17-369-2025" target="_blank">An organic matter database (OMD): consolidating global residue data from agriculture, fisheries, forestry and related industries</a>
+</div>
+<div class="article-meta">Earth system science data &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Gudeta W. Sileshi, Edmundo Barrios, Johannes Lehmann &nbsp;·&nbsp; 18× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.3390/pr13020294" target="_blank">Two-Stage Anaerobic Digestion for Green Energy Production: A Review</a>
+</div>
+<div class="article-meta">Processes &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Иван Симеонов, Elena Chorukova, Lyudmila Kabaivanova &nbsp;·&nbsp; 28× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.3390/waste3020018" target="_blank">Agricultural Waste: Challenges and Solutions, a Review</a>
+</div>
+<div class="article-meta">Waste &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Maximilian Lackner, Maghsoud Besharati &nbsp;·&nbsp; 35× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.3390/membranes15010014" target="_blank">The Role of Membranes in Modern Winemaking: From Clarification to Dealcoholization</a>
+</div>
+<div class="article-meta">Membranes &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Carolina Elisa Demaman Oro, Bruna Maria Saorin Puton, Luciana Dornelles Venquiaruto &nbsp;·&nbsp; 12× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.3390/ani15081184" target="_blank">The Vital Roles of Agricultural Crop Residues and Agro-Industrial By-Products to Support Sustainable Livestock Productivity in Subtropical Regions</a>
+</div>
+<div class="article-meta">Animals &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Ali Mujtaba Shah, Huiling Zhang, Muhammad Shahid &nbsp;·&nbsp; 32× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1007/s11356-025-35885-8" target="_blank">Unleashing the power of microalgae: a pioneering path to sustainability and achieving the sustainable development goals</a>
+</div>
+<div class="article-meta">Environmental Science and Pollution Research &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Shimaa Hosny, Mostafa E. Elshobary, Mostafa M. El‐Sheekh &nbsp;·&nbsp; 39× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1016/j.resconrec.2025.108571" target="_blank">A literature review of slaughterhouse waste valorisation: Techniques, environmental, and economic implications</a>
+</div>
+<div class="article-meta">Resources Conservation and Recycling &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Dennis S. Ashilenje, Fatma H. Ashour, Mirko Barz &nbsp;·&nbsp; 4× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1155/bri/6619273" target="_blank">Current Understanding of Feather Keratin and Keratinase and Their Applications in Biotechnology</a>
+</div>
+<div class="article-meta">Biochemistry Research International &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Thanakorn Moktip, Lakha Salaipeth, Ana Eusebio Cope &nbsp;·&nbsp; 12× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1016/j.wasman.2025.114948" target="_blank">Advancing the valorisation of meat co-products in food, pet food, and biomedicine applications</a>
+</div>
+<div class="article-meta">Waste Management &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Ricard Bou, L. Pinotti, Dimitrios I. Zeugolis &nbsp;·&nbsp; 5× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.3390/foods15020254" target="_blank">Porcine Blood: An Eco-Efficient Source of Multifunctional Protein Hydrolysates</a>
+</div>
+<div class="article-meta">Foods &nbsp;·&nbsp; 2026 &nbsp;·&nbsp; Sandra Borges, J. Odila, Glenise Bierhalz Voss</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.3390/ijms26083583" target="_blank">Optimization of Sequential Enzymatic Hydrolysis in Porcine Blood and the Influence on Peptide Profile and Bioactivity of Prepared Hydrolysates</a>
+</div>
+<div class="article-meta">International Journal of Molecular Sciences &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Cristina Moreno-Mariscal, Federico Moroni, Jaume Pérez‐Sánchez &nbsp;·&nbsp; 5× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1039/d4em00754a" target="_blank">Biodegradable plastics in soils: sources, degradation, and effects</a>
+</div>
+<div class="article-meta">Environmental Science Processes & Impacts &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Piumi Amasha Withana, Xiangzhou Yuan, Don-Sun Im &nbsp;·&nbsp; 26× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1038/s43247-025-02105-7" target="_blank">Plastics matter in the food system</a>
+</div>
+<div class="article-meta">Communications Earth & Environment &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Joe Yates, Megan Deeney, Jane Muncke &nbsp;·&nbsp; 18× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1039/d4su00718b" target="_blank">Advances in 3D printing with eco-friendly materials: a sustainable approach to manufacturing</a>
+</div>
+<div class="article-meta">RSC Sustainability &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Ketan Agrawal, Asrar Rafiq Bhat &nbsp;·&nbsp; 25× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.3390/macromol5020021" target="_blank">Advances in Microbial and Plant-Based Biopolymers: Synthesis and Applications in Next-Generation Materials</a>
+</div>
+<div class="article-meta">Macromol—A Journal of Macromolecular Research &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Poova Kattil Drishya, M. Venkateswar Reddy, Gunda Mohanakrishna &nbsp;·&nbsp; 30× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.3390/polym17141897" target="_blank">Agricultural Waste-Derived Biopolymers for Sustainable Food Packaging: Challenges and Future Prospects</a>
+</div>
+<div class="article-meta">Polymers &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Thivya Selvam, Nor Mas Mira Abd Rahman, Fabrizio Olivito &nbsp;·&nbsp; 46× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1002/aro2.70002" target="_blank">Environmental and Nutritional Value of Fruit and Vegetable Peels as Animal Feed: A Comprehensive Review</a>
+</div>
+<div class="article-meta">Animal Research and One Health &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Muhammad Wasim Haider, Syed Mohsin Abbas, Muhammad Saeed &nbsp;·&nbsp; 29× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.3390/polym17212901" target="_blank">Advanced Biocompatible and Biodegradable Polymers: A Review of Functionalization, Smart Systems, and Sustainable Applications</a>
+</div>
+<div class="article-meta">Polymers &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Latifat Abdulsalam, Sadam Abubakar, Ikfa Permatasari &nbsp;·&nbsp; 11× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1038/s41467-024-55097-x" target="_blank">Living plastics from plasticizer-assisted thermal molding of silk protein</a>
+</div>
+<div class="article-meta">Nature Communications &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Yushu Wang, Junqi Wu, Emily J. Hartzell &nbsp;·&nbsp; 21× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.1007/s44187-025-00276-y" target="_blank">Unlocking the potential of banana peel bioactives: extraction methods, benefits, and industrial applications</a>
+</div>
+<div class="article-meta">Discover Food &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Khalid Mehmood Wani, M. Dhanya &nbsp;·&nbsp; 34× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.3390/microorganisms13081789" target="_blank">Biotechnology in Agro-Industry: Valorization of Agricultural Wastes, By-Products and Sustainable Practices</a>
+</div>
+<div class="article-meta">Microorganisms &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; S. De Silva, Amanda Kelly Cristiano Mafra, Franciele Maria Pelissari &nbsp;·&nbsp; 10× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.3390/su17020720" target="_blank">Development and Valuation of Novel PLA-Based Biodegradable Packaging Materials Complemented with Food Waste of Plant and Animal Origin for Shelf-Life Extension of Selected Foods: Trends and Challenges</a>
+</div>
+<div class="article-meta">Sustainability &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Dimitrios G. Lazaridis, Νικόλαος Δ. Ανδρίτσος, Aris E. Giannakas &nbsp;·&nbsp; 10× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+<div class="article-card">
+<div class="article-title">
+  <span class="badge badge-academic">Academic</span>
+  <a href="https://doi.org/10.3389/fsufs.2025.1507120" target="_blank">Eco-innovation in action: valorizing vegetable waste into high-value ingredients for sustainable applications</a>
+</div>
+<div class="article-meta">Frontiers in Sustainable Food Systems &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; S Balakrishnan, Indu Rani Chandrasekaran, J. Ramalingam &nbsp;·&nbsp; 7× idézve</div>
+<div class="article-snippet">[absztrakt elérhető a forrásnál]</div>
+</div>
+</body></html>
